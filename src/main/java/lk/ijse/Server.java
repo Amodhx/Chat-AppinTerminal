@@ -34,7 +34,11 @@ public class Server {
     private static void sendMsg(Socket socket, String msg, ArrayList<Socket> sockets) throws IOException {
         for (Socket socket1 : sockets) {
             DataOutputStream dataOutputStream = new DataOutputStream(socket1.getOutputStream());
-            dataOutputStream.writeUTF(msg);
+            if (socket1.getPort() == socket.getPort()){
+                dataOutputStream.writeUTF("me "+msg);
+            }else {
+                dataOutputStream.writeUTF(msg);
+            }
             dataOutputStream.flush();
         }
     }
